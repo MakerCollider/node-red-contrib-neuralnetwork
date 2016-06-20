@@ -1,0 +1,13 @@
+{
+    "dataCollect": {
+        "label": {
+            "palette": "dataCollect"
+            
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}

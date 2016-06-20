@@ -1,0 +1,13 @@
+{
+    "multiInData": {
+        "label": {
+            "palette": "multiInData"
+            
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}

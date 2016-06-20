@@ -1,0 +1,13 @@
+ {
+    "outputJudge": {
+        "label": {
+            "palette": "outputJudge"
+            
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}

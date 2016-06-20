@@ -1,0 +1,12 @@
+{
+    "neuralNetwork": {
+        "label": {
+            "palette": "AI"
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}
