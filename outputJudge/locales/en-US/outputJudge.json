@@ -1,7 +1,13 @@
  {
     "outputJudge": {
         "label": {
-            "palette": "outputJudge"
+            "name": "name",
+            "palette": "outputJudge",
+            "rules": "rules",
+            "addbutton": "add",
+            "judgeType": "judgeType",
+            "resultValue": "result key",
+            "placeholder": "node name"
             
         }
     },

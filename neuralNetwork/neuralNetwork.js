@@ -1,4 +1,4 @@
-var brain = require('neuralnetwork');
+var brain = require('brain');
 
 module.exports = function(RED){
     function neuralNetworkNode(config){

@@ -1,7 +1,11 @@
 {
     "multiInData": {
         "label": {
-            "palette": "multiInData"
+            "name": "name",
+            "palette": "multiInData",
+            "rules": "rules",
+            "addbutton": "add",
+            "placeholder": "node name"
             
         }
     },

@@ -1,8 +1,19 @@
 {
     "dataCollect": {
         "label": {
-            "palette": "dataCollect"
-            
+            "name": "name",
+            "palette": "dataCollect",
+            "in-rules": "in-rules",
+            "out-rules": "out-rules",
+            "send-cmd": "send-cmd",
+            "addbutton": "add",
+            "inGroupNumber":"inputs",
+            "outGroupNumber":"outputs",
+            "form": "Retention-parameters",
+            "placeholder": "node name",
+            "inGroupNumberplaceholder": "For example 1",
+            "outGroupNumberplaceholder": "For example 1",
+            "cmdplaceholder": "cmd name"
         }
     },
     "palette": {
