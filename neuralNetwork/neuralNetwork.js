@@ -31,7 +31,7 @@ module.exports = function(RED){
                 log: false,           // console.log() progress periodically
                 logPeriod: node.logPeriod      // number of iterations between logging
             } 
-           // console.log(neuralNetworkOptions);
+
             var net = new brain.NeuralNetwork(neuralNetworkOptions);
 
             if (node.brainType == 'run') {
@@ -49,16 +49,14 @@ module.exports = function(RED){
                 else if (typeof(msg.runData) == 'object'){
                     runData = msg.runData;
                 }
+                console.log(netData);
                 if (typeof(netData)!='undefined' && netData!=0 && typeof(runData)!='undefined' && runData!=0){
-                    //console.log(typeof(netData));
-                    //console.log('-------------');
-                    //console.log(typeof(runData));
+                    
                     net.fromJSON(netData);
                     msg.payload = net.run(runData);
                     node.status({fill: 'green',shape: 'dot',text: 'running done'});
                     node.send(msg);
                 }
-
             } 
             else {
                 var trainData;
@@ -68,6 +66,7 @@ module.exports = function(RED){
                 else if (typeof(msg.trainData) == 'object'){
                     trainData = msg.trainData;
                 }
+
                 node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                 var trainStream = net.createTrainStream({
                     floodCallback: function() {
