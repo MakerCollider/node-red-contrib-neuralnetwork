@@ -62,11 +62,11 @@ module.exports = function(RED){
             } 
             else {
                 var trainData;
-                if (typeof(msg.payload) == 'string'){
-                    trainData = JSON.parse(msg.payload);
+                if (typeof(msg.trainData) == 'string'){
+                    trainData = JSON.parse(msg.trainData);
                 }
-                else if (typeof(msg.payload) == 'object'){
-                    trainData = msg.payload;
+                else if (typeof(msg.trainData) == 'object'){
+                    trainData = msg.trainData;
                 }
                 node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                 var trainStream = net.createTrainStream({
