@@ -1,5 +1,5 @@
 var brain = require('brain');
-
+var netData;
 module.exports = function(RED){
     function neuralNetworkNode(config){
         RED.nodes.createNode(this, config);
@@ -35,28 +35,52 @@ module.exports = function(RED){
             var net = new brain.NeuralNetwork(neuralNetworkOptions);
 
             if (node.brainType == 'run') {
-                net.fromJSON(msg.netJSON);
-                msg.payload = net.run(msg.runData);
-                node.status({fill: 'green',shape: 'dot',text: 'running done'});
-                node.send(msg)
+                if (typeof(msg.netData) == 'string'){
+                    netData = JSON.parse(msg.netData);
+                }
+                else if (typeof(msg.netData) == 'object'){
+                    netData = msg.netData;
+                }
+                
+                var runData;
+                if (typeof(msg.runData) == 'string'){
+                    runData = JSON.parse(msg.runData);
+                }
+                else if (typeof(msg.runData) == 'object'){
+                    runData = msg.runData;
+                }
+                if (typeof(netData)!='undefined' && netData!=0 && typeof(runData)!='undefined' && runData!=0){
+                    //console.log(typeof(netData));
+                    //console.log('-------------');
+                    //console.log(typeof(runData));
+                    net.fromJSON(netData);
+                    msg.payload = net.run(runData);
+                    node.status({fill: 'green',shape: 'dot',text: 'running done'});
+                    node.send(msg);
+                }
+
             } 
             else {
-
+                var trainData;
+                if (typeof(msg.trainData) == 'string'){
+                    trainData = JSON.parse(msg.trainData);
+                }
+                else if (typeof(msg.trainData) == 'object'){
+                    trainData = msg.trainData;
+                }
                 node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                 var trainStream = net.createTrainStream({
                     floodCallback: function() {
-                        flood(trainStream, msg.trainData);
+                        flood(trainStream, trainData);
                     },
                     doneTrainingCallback: function(obj) {
                         node.status({fill: 'green',shape: 'dot',text: 'trainning done'});
-                        //msg.result = net.run(msg.runData)
                         msg.payload = net.toJSON();
-                        console.log(msg.payload);
                         node.send(msg);
                     }
                 });
 
-                flood(trainStream, msg.trainData);
+                flood(trainStream, trainData);
 
                 function flood(stream, data) {
                     for (var i = 0; i < data.length; i++) {
@@ -67,6 +91,6 @@ module.exports = function(RED){
             }
         });
     }
-
+    
     RED.nodes.registerType('neuralNetwork', neuralNetworkNode);
 }

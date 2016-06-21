@@ -1,4 +1,4 @@
-# node-red-contrib-brain
+# node-red-contrib-neuralnetwork
 
 
 # Install
@@ -25,10 +25,6 @@ When there is no `msg.netJSON` input, `brain` node will train with `msg.trainDat
 
 When there is `msg.netJSON` input, `brain` node will not train anymore. Instead, it will directory run `net.run()` with your `msg.runData`. And output the result in `msg.payload`.
 
-## Options
-
-You could pass a `msg.neuralNetworkOptions` to brain node. See [brain options doc](https://github.com/harthur/brain/#options-1).
-
 # Example
 
 Train:
@@ -47,3 +43,4 @@ Run:
 # License 
 
 MIT License
+\ No newline at end of file
