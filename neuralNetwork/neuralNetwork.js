@@ -35,23 +35,14 @@ module.exports = function(RED){
             var net = new brain.NeuralNetwork(neuralNetworkOptions);
 
             if (node.brainType == 'run') {
-                if (typeof(msg.netData)!='undefined'){
-                    if (typeof(msg.netData) == 'string'){
-                        netData = JSON.parse(msg.netData);
-                    }
-                    else if (typeof(msg.netData) == 'object'){
-                        netData = msg.netData;
-                    }
+                console.log(msg.netData);
+                if (typeof(msg.netData) == 'string'){
+                    netData = JSON.parse(msg.netData);
                 }
-                else if (typeof(msg.payload)!='undefined'){
-                    if (typeof(msg.payload) == 'string'){
-                        netData = JSON.parse(msg.payload);
-                    }
-                    else if (typeof(msg.payload) == 'object'){
-                        netData = msg.payload;
-                    }
+                else if (typeof(msg.netData) == 'object'){
+                    netData = msg.netData;
                 }
-                
+           console.log(netData);     
                 var runData;
                 if (typeof(msg.runData) == 'string'){
                     runData = JSON.parse(msg.runData);
