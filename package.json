@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-neuralnetwork",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SmartNode node package, provided by MakerCollider",
   "keywords": [
     "node-red",
