@@ -1,36 +1,32 @@
 {
-    "name":                 "node-red-contrib-neuralnetwork",
-    "version":              "1.1.2",
-    "main":                 "index.js",
-    "description":          "SmartNode node package, provided by MakerCollider",
-    "keywords":             ["node-red", "node", "neuralnetwork", "makercollider"],
-    "homepage":             "http://www.smartnode.io/",
-    "bugs": {
-        "url": "https://github.com/MakerCollider/node-red-contrib-neuralnetwork/issues"
-    },
-    "license":              "MIT",
-    "author": {
-        "name": "Maker Collider SmartNode Team"},
-    "repository": {
-        "type": "git",
-        "url":  "https://github.com/MakerCollider/node-red-contrib-neuralnetwork.git"
-    },
-    "dependencies":         {},
-    "devDependencies": {},
-    "scripts": {},
-    "os":                   ["win32"],
-    "binary": {
-        "module_name":  "sn_addon",
-        "module_path":  "./lib/",
-        "host":         "https://github.com/MakerCollider/node-red-contrib-neuralnetwork/",
-        "remote_path":  "releases/download/v{version}/"
-    },
-    "node-red": {
-        "nodes": {
-              "neuralNetwork":   "neuralNetwork/neuralNetwork.js",
-              "multiInData"  :   "multiInData/multiInData.js",
-              "dataCollect"  :   "dataCollect/dataCollect.js",
-              "outputJudge"  :   "outputJudge/outputJudge.js"
-        }
+  "name": "node-red-contrib-neuralnetwork",
+  "version": "0.1.0",
+  "description": "SmartNode node package, provided by MakerCollider",
+  "keywords": [
+    "node-red",
+    "node",
+    "neuralnetwork",
+    "makercollider"
+  ],
+  "homepage": "http://www.smartnode.io/",
+  "bugs": {
+    "url": "https://github.com/MakerCollider/node-red-contrib-neuralnetwork/issues"
+  },
+  "license": "MIT",
+  "author": "Maker Collider SmartNode Team",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MakerCollider/node-red-contrib-neuralnetwork.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "node-red": {
+    "nodes": {
+      "neuralNetwork": "neuralNetwork/neuralNetwork.js",
+      "multiInData": "multiInData/multiInData.js",
+      "dataCollect": "dataCollect/dataCollect.js",
+      "outputJudge": "outputJudge/outputJudge.js"
     }
+  }
 }
