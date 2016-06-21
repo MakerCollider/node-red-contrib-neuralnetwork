@@ -1,7 +1,7 @@
 {
     "neuralNetwork": {
         "label": {
-            "palette": "AINN",
+            "palette": "neuralNetwork",
             "name": "name",
             "brainType": "type",
             "learningRate":"learningRate",

@@ -1,7 +1,7 @@
 {
     "brain": {
         "label": {
-            "palette": "AI",
+            "palette": "神经网络",
             "name": "名称",
             "brainType": "类型",
             "learningRate":"学习速率",
