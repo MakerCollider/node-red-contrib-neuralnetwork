@@ -35,11 +35,21 @@ module.exports = function(RED){
             var net = new brain.NeuralNetwork(neuralNetworkOptions);
 
             if (node.brainType == 'run') {
-                if (typeof(msg.netData) == 'string'){
-                    netData = JSON.parse(msg.netData);
+                if (typeof(msg.netData)!='undefined'){
+                    if (typeof(msg.netData) == 'string'){
+                        netData = JSON.parse(msg.netData);
+                    }
+                    else if (typeof(msg.netData) == 'object'){
+                        netData = msg.netData;
+                    }
                 }
-                else if (typeof(msg.netData) == 'object'){
-                    netData = msg.netData;
+                else if (typeof(msg.payload)!='undefined'){
+                    if (typeof(msg.payload) == 'string'){
+                        netData = JSON.parse(msg.payload);
+                    }
+                    else if (typeof(msg.payload) == 'object'){
+                        netData = msg.payload;
+                    }
                 }
                 
                 var runData;
@@ -49,7 +59,7 @@ module.exports = function(RED){
                 else if (typeof(msg.runData) == 'object'){
                     runData = msg.runData;
                 }
-                console.log(netData);
+
                 if (typeof(netData)!='undefined' && netData!=0 && typeof(runData)!='undefined' && runData!=0){
                     
                     net.fromJSON(netData);
