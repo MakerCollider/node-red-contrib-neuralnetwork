@@ -1,0 +1,19 @@
+{
+    "brain": {
+        "label": {
+            "palette": "brain",
+            "name": "name",
+            "brainType": "type",
+            "learningRate":"learningRate",
+            "hiddenLayers":"hiddenLayers",
+            "errorThresh":"errorThresh",
+            "iterations":"iterations",
+            "logPeriod":"iterations"
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}
