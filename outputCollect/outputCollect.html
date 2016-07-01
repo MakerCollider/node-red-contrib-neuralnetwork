@@ -15,7 +15,7 @@
         <a href="#" class="editor-button editor-button-small" id="node-input-add-in-rule" style="margin-top: 4px;"><i class="fa fa-plus"></i> <span data-i18n="outputCollect.label.addbutton"></span></a>
     </div>
     <div class="form-row">
-        <label for="node-input-outkey"><i class="fa fa-sign-in"></i> <span data-i18n="outputCollect.label.outkey"></span></label>
+        <label for="node-input-outkey"><i class="fa fa-sign-out"></i> <span data-i18n="outputCollect.label.outkey"></span></label>
         msg.<input type="text" id="node-input-outkey" style="width:208px;">
     </div>
 </script>
@@ -30,7 +30,7 @@
         defaults: {
             name: {value:""},
             inRules: {value:[{name:""}]},
-            outkey: {value:"payload"}
+            outkey: {value:"output"}
         },
         inputs: 1,
         outputs: 1,
@@ -47,7 +47,7 @@
 
                 var row = $('<div/>').appendTo(container);
                 $('<i style="color: #eee; cursor: move;" class="node-input-rule-handle fa fa-bars"></i>').appendTo(row);
-                $('<div/>',{style:"display:inline-block; width: 50px; text-align: right;"}).text("msg.").appendTo(row);
+                $('<div/>',{style:"display:inline-block; width: 50px; text-align: right;"}).text("").appendTo(row);
 
                 var valueField = $('<input/>',{class:"node-input-rule-value",type:"text",style:"margin-left: 5px; width: 145px;"}).appendTo(row);
 

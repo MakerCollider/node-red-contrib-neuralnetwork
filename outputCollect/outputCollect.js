@@ -12,7 +12,7 @@ module.exports = function(RED) {
             var input = msg.payload;
             var output_key = 'payload';
             var _output = node.outkey;
-            (_output == '' || _output.length == 0) ? output_key = "payload" : output_key = node.outkey;
+            (_output == '' || _output.length == 0) ? output_key = output_key : output_key = node.outkey;
 
             //input
             for (var i=0; i<node.inRules.length; i++) {

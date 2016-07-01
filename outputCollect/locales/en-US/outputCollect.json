@@ -3,7 +3,7 @@
         "label": {
             "name": "Name",
             "palette": "NN-Output",
-            "rules": "Input",
+            "rules": "Input-Attr",
             "addbutton": "add",
             "outkey": "Output",
             "placeholder": "Node name"
