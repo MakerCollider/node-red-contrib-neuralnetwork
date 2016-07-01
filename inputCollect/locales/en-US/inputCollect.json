@@ -1,0 +1,17 @@
+{
+    "inputCollect": {
+        "label": {
+            "name": "Name",
+            "palette": "NN-Input",
+            "rules": "Input",
+            "addbutton": "add",
+            "outkey": "Output",
+            "placeholder": "Node name"
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}

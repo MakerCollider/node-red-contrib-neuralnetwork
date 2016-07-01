@@ -1,0 +1,107 @@
+
+<script type="text/x-red" data-template-name="inputCollect">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="inputCollect.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]inputCollect.label.placeholder">
+    </div>
+    <div class="form-row" style="margin-bottom:0;">
+        <label><i class="fa fa-list"></i> <span data-i18n="inputCollect.label.rules"></span></label>
+    </div>
+    <div class="form-row node-input-rule-container-row" style="margin-bottom: 0px;">
+        <div id="node-input-in-rule-container-div" style="box-sizing: border-box; border-radius: 5px; height: 200px; padding: 5px; border: 1px solid #ccc; overflow-y:scroll;">
+            <ol id="node-input-in-rule-container" style=" list-style-type:none; margin: 0;"></ol>
+        </div>
+    </div>
+    <div class="form-row">
+        <a href="#" class="editor-button editor-button-small" id="node-input-add-in-rule" style="margin-top: 4px;"><i class="fa fa-plus"></i> <span data-i18n="inputCollect.label.addbutton"></span></a>
+    </div>
+    <div class="form-row">
+        <label for="node-input-outkey"><i class="fa fa-sign-in"></i> <span data-i18n="inputCollect.label.outkey"></span></label>
+        msg.<input type="text" id="node-input-outkey" style="width:208px;">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="inputCollect">
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('inputCollect', {
+        color: "#E2D96E",
+        category: 'neuralNetwork',
+        defaults: {
+            name: {value:""},
+            inRules: {value:[{name:""}]},
+            outkey: {value:"payload"}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "light.png",
+        label: function() {
+            return this.name|| this._("inputCollect.label.palette");
+        },
+        paletteLabel: function () {
+            return this.name|| this._("inputCollect.label.palette");
+        },
+        oneditprepare: function() {
+            function generateInRule(i,rule) {
+                var container = $('<li/>',{style:"background: #fff; margin:0; padding:8px 0px; border-bottom: 1px solid #ccc;"});
+
+                var row = $('<div/>').appendTo(container);
+                $('<i style="color: #eee; cursor: move;" class="node-input-rule-handle fa fa-bars"></i>').appendTo(row);
+                $('<div/>',{style:"display:inline-block; width: 50px; text-align: right;"}).text("msg.").appendTo(row);
+
+                var valueField = $('<input/>',{class:"node-input-rule-value",type:"text",style:"margin-left: 5px; width: 145px;"}).appendTo(row);
+
+                var finalspan = $('<span/>',{style:"float: right;margin-right: 10px;"}).appendTo(row);
+                finalspan.append(' &#8594; <span class="node-input-rule-index">'+i+'</span> ');
+                
+                var deleteButton = $('<a/>',{href:"#",class:"editor-button editor-button-small", style:"margin-top: 7px; margin-left: 5px;"}).appendTo(finalspan);
+                $('<i/>',{class:"fa fa-remove"}).appendTo(deleteButton);
+                
+                
+                deleteButton.click(function() {
+                    container.css({"background":"#fee"});
+                    container.fadeOut(300, function() {
+                        $(this).remove();
+                        $("#node-input-in-rule-container").children().each(function(i) {
+                            $(this).find(".node-input-rule-index").html(i+1);
+                        });
+
+                    });
+                });
+
+                $("#node-input-in-rule-container").append(container);
+                valueField.val(rule.name);
+            }
+            
+            //add input param rule
+            $("#node-input-add-in-rule").click(function() {
+                generateInRule($("#node-input-in-rule-container").children().length+1,{name:""});
+                $("#node-input-in-rule-container-div").scrollTop($("#node-input-in-rule-container-div").get(0).scrollHeight);
+            });
+            
+            //init
+            for (var i=0;i<this.inRules.length;i++) {
+                var rule = this.inRules[i];
+                generateInRule(i+1,rule);
+            }
+        },
+        oneditsave: function() {
+            function saveInRules(e) {
+                var rules = $("#node-input-in-rule-container").children();
+                var node = e;
+                node.inRules= [];
+                rules.each(function(i) {
+                    var rule = $(this);
+                    var n = rule.find(".node-input-rule-value").val();
+                    if(n.length > 0){
+                        var r = {name:n};
+                        node.inRules.push(r);
+                    }
+                });
+            }
+
+            saveInRules(this);
+        }
+    });
+</script>
