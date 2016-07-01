@@ -1,0 +1,23 @@
+{
+    "controlMode": {
+        "label": {
+            "name": "名称",
+            "palette": "控制模式",
+            "mode-train": "设置训练模式键-值",
+            "mode-run": "设置执行模式键-值",
+            "mode-reset": "设置复位模式键-值",
+            "mode-collect": "设置数据采集模式键-值",
+            "control-savekey": "保存-键",
+            "control-key": "键",
+            "control-value": "值",
+            "outkey": "输出",
+            "placeholder": "节点名称"
+
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "神经网络"
+        }
+    }     
+}

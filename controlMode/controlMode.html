@@ -1,0 +1,76 @@
+<script type="text/x-red" data-template-name="controlMode">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="controlMode.label.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]controlMode.label.placeholder">
+    </div>
+    <div class="form-row"><i class="fa fa-sign-in"></i> <span data-i18n="controlMode.label.mode-collect"></span>:
+    </div>
+    <div class="form-row"><label></label>
+        <span data-i18n="controlMode.label.control-key"></span>: <input type="text" id="node-input-collectKey" style="width:90px;"/>
+        &nbsp;<span data-i18n="controlMode.label.control-value"></span>: <input type="text" id="node-input-collectValue"  style="width:90px;"/>
+    </div>
+    <div class="form-row"><label></label>
+        <span data-i18n="controlMode.label.control-savekey"></span>: <input type="text" id="node-input-saveKey" style="width:90px;"/>
+        &nbsp;<span data-i18n="controlMode.label.control-value"></span>: <input type="text" id="node-input-saveValue"  style="width:90px;"/>
+    </div>
+    <div class="form-row"><i class="fa fa-sign-in"></i> <span data-i18n="controlMode.label.mode-train"></span>:
+    </div>
+    <div class="form-row"><label></label>
+        <span data-i18n="controlMode.label.control-key"></span>: <input type="text" id="node-input-trainKey" style="width:90px;"/>
+        &nbsp;<span data-i18n="controlMode.label.control-value"></span>: <input type="text" id="node-input-trainValue"  style="width:90px;"/>
+    </div>
+    <div class="form-row"><i class="fa fa-sign-in"></i> <span data-i18n="controlMode.label.mode-run"></span>:
+    </div>
+    <div class="form-row"><label></label>
+        <span data-i18n="controlMode.label.control-key"></span>: <input type="text" id="node-input-runKey" style="width:90px;"/>
+        &nbsp;<span data-i18n="controlMode.label.control-value"></span>: <input type="text" id="node-input-runValue"  style="width:90px;"/>
+    </div>
+    <div class="form-row"><i class="fa fa-sign-in"></i> <span data-i18n="controlMode.label.mode-reset"></span>:
+    </div>
+    <div class="form-row"><label></label>
+        <span data-i18n="controlMode.label.control-key"></span>: <input type="text" id="node-input-resetKey" style="width:90px;"/>
+        &nbsp;&nbsp;<span data-i18n="controlMode.label.control-value"></span>: <input type="text" id="node-input-resetValue"  style="width:90px;"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-outkey"><i class="fa fa-sign-in"></i> <span data-i18n="controlMode.label.outkey"></span></label>
+        msg.<input type="text" id="node-input-outkey" style="width:208px;" readonly>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="controlMode">
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('controlMode', {
+        color: "#E2D96E",
+        category: 'neuralNetwork',
+        defaults: {
+            name: {value:""},
+            collectKey: {value:"Y", required: true},
+            collectValue: {value:1, required: true},
+            trainKey: {value:"A", required: true},
+            trainValue: {value:1, required: true},
+            saveKey: {value:"R1", required: true},
+            saveValue: {value:1, required: true},
+            runKey: {value:"B", required: true},
+            runValue: {value:1, required: true},
+            resetKey: {value:"X", required: true},
+            resetValue: {value:1, required: true},
+            outkey: {value:"Mode"}
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "light.png",
+        label: function() {
+            return this.name|| this._("controlMode.label.palette");
+        },
+        paletteLabel: function () {
+            return this.name|| this._("controlMode.label.palette");
+        },
+        oneditprepare: function() {
+
+        },
+        oneditsave: function() {
+        }
+    });
+</script>

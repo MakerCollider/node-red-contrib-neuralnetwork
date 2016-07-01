@@ -1,0 +1,22 @@
+{
+    "controlMode": {
+        "label": {
+            "name": "Name",
+            "palette": "controlMode",
+            "mode-train": "Set train-mode key-value",
+            "mode-run": "Set Run-mode key-value",
+            "mode-reset": "Set reset-mode key-value",
+            "mode-collect": "Set collect-mode key-value",
+            "control-savekey": "Save-Key",
+            "control-key": "Ctrl-Key",
+            "control-value": "Value",
+            "outkey": "Output",
+            "placeholder": "Node name"
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "Neural Networks"
+        }
+    }     
+}
