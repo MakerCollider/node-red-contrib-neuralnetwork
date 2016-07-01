@@ -1,0 +1,17 @@
+{
+    "outputCollect": {
+        "label": {
+            "name": "名称",
+            "palette": "输入数据",
+            "rules": "输入属性",
+            "addbutton": "增加",
+            "outkey": "输出属性",
+            "placeholder": "节点名称"
+        }
+    },
+    "palette": {
+        "label": {
+              "neuralNetwork": "神经网络"
+        }
+    }     
+}
