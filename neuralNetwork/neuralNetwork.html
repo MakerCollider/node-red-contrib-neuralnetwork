@@ -6,7 +6,10 @@
     outputs: 1,
     defaults: {
       name: { value: 'neuralNetwork' },
-      brainType: { value: 'train' },
+      brainType: { value: 'train', required: true},
+      usageMode: {value:0, required: true},
+      inputKey: {value:"payload1"},
+      outputKey: {value:"payload2"},
       learningRate: { value: 0.3 },
       hiddenLayers: { value: '3,4' },
       errorThresh: { value: 0.005 },
@@ -18,6 +21,21 @@
     },
     paletteLabel: function () {
         return this.name||this._("neuralNetwork.label.palette");
+    },
+    oneditprepare: function() {
+        $("#node-input-usageMode").change(function(){
+            var usageMode = $(this).val();
+            if (usageMode == 0){
+                $('#div-input-output-tab').hide();
+                $('#div-input-output').hide();
+                $('#div-neuralnetwork-type').show();
+            }
+            if (usageMode == 1){
+                $('#div-input-output-tab').show();
+                $('#div-input-output').show();
+                $('#div-neuralnetwork-type').hide();
+            }
+        });
     }
   })
 </script>
@@ -29,8 +47,21 @@
   </div>
 
   <div class="form-row">
+    <label for="node-input-usageMode"><i class="fa fa-tag"></i> <span data-i18n="neuralNetwork.label.usageMode"></span></label>
+    <select for="node-input-usageMode" id="node-input-usageMode" style="width:328px;">
+    <option value ="0">Common</option>
+    <option value ="1">Advanced</option>
+    </select>
+  </div>
+  <div id="div-input-output-tab" class="form-row" style="display:none;"><i class="fa fa-sign-in"></i> <span data-i18n="neuralNetwork.label.in-out"></span>:
+  </div>
+  <div id="div-input-output" class="form-row" style="display:none;"><label></label>
+      <span data-i18n="neuralNetwork.label.param-input"></span>: msg.<input type="text" id="node-input-inputKey" style="width:90px;"/>
+        &nbsp;<span data-i18n="neuralNetwork.label.param-output"></span>: msg.<input type="text" id="node-input-outputKey"  style="width:90px;"/>
+  </div>
+  <div id="div-neuralnetwork-type" class="form-row">
     <label for="node-input-neuralNetworkType"><i class="fa fa-list"></i> <span data-i18n="neuralNetwork.label.brainType"></span></label>
-    <select for="node-input-brainType" id="node-input-brainType">
+    <select for="node-input-brainType" id="node-input-brainType"  style="width:328px;">
     <option value ="train">train</option>
     <option value ="run">run</option>
     </select>
@@ -50,7 +81,7 @@
     <input type="text" id="node-input-errorThresh">
   </div>
   <div class="form-row">
-    <label for="node-input-iterations"><i class="fa fa-clock-o"></i> <span data-i18n="brain.label.iterations"></span></label>
+    <label for="node-input-iterations"><i class="fa fa-clock-o"></i> <span data-i18n="neuralNetwork.label.iterations"></span></label>
     <input type="text" id="node-input-iterations">
   </div>
   <div class="form-row">

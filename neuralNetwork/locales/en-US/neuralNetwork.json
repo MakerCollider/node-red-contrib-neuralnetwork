@@ -4,11 +4,15 @@
             "palette": "neuralNetwork",
             "name": "name",
             "brainType": "type",
+            "in-out": "input-output",
+            "param-input": "in",
+            "param-output": "out",
+            "usageMode": "usageMode",
             "learningRate":"learningRate",
             "hiddenLayers":"hiddenLayers",
             "errorThresh":"errorThresh",
             "iterations":"iterations",
-            "logPeriod":"iterations"
+            "logPeriod":"logPeriod"
         }
     },
     "palette": {
