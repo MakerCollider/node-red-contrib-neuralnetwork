@@ -8,6 +8,7 @@
             "mode-reset": "Set reset-mode key-value",
             "mode-collect": "Set collect-mode key-value",
             "control-savekey": "Save-Key",
+            "control-tempSaveKey": "tempSave-Key",
             "control-key": "Ctrl-Key",
             "control-value": "Value",
             "outkey": "Output",

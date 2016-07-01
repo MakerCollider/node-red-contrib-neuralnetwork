@@ -19,6 +19,7 @@ module.exports = function(RED){
         this.iterations = config.iterations;
         this.logPeriod = config.logPeriod;
         this.inputData = {};
+        this.tempInputData = {};
         this.outputData = {};
         this.trainStatus = 0;
         var node = this;
@@ -62,33 +63,45 @@ module.exports = function(RED){
                 var output_key = 'payload2';
                 var _input = node.inputKey;
                 var _output = node.outputKey;
-                (_input == '' || _input.length == 0) ? input_key = "payload2" : input_key = node.inputKey;
-                (_output == '' || _output.length == 0) ? output_key = "payload3" : output_key = node.outputKey;
+                (_input == '' || _input.length == 0) ? input_key = input_key : input_key = node.inputKey;
+                (_output == '' || _output.length == 0) ? output_key = output_key : output_key = node.outputKey;
 
                 //check data complete.
                 if (msg.hasOwnProperty(input_key)){
                     node.inputData = msg[input_key];
-                    console.log('collect-input:');
-                    console.log(node.inputData);
+                    //console.log('collect-input:');
+                    //console.log(node.inputData);
                 }
 
                 if (_G_ControlMode == 'collect'){
                     // collect input & output
                     if (msg.hasOwnProperty(output_key)){
                         node.outputData = msg[output_key];
-                        console.log('collect-output:');
-                        console.log(node.outputData);
+                        //console.log('collect-output:');
+                        //console.log(node.outputData);
                     }
 
                     var mode_key = 'Mode';
                     if (msg.hasOwnProperty(mode_key)){
+                        if (msg[mode_key] == 'tempSave'){
+                            console.log('temp save:');
+                            var arrIn = Object.keys(node.inputData);
+                            if (arrIn.length >0){
+                                node.tempInputData = node.inputData;
+                                msg.temp = node.tempInputData;
+                                node.send(msg);
+                            }
+                        }
                         if (msg[mode_key] == 'save'){
                             console.log('save:');
-                            var arrIn = Object.keys(node.inputData);
+                            console.log('temp:');
+                            console.log(node.tempInputData);
+                            console.log(node.outputData);
+                            var arrIn = Object.keys(node.tempInputData);
                             var arrOut = Object.keys(node.outputData);
                             if (arrIn.length >0 && arrOut.length > 0){
                                 var groupData = {
-                                    'input':node.inputData,
+                                    'input':node.tempInputData,
                                     'output':node.outputData,
                                 };
                                 collect.appendData(groupData);
@@ -104,6 +117,7 @@ module.exports = function(RED){
                                     if (err) {
                                         node.status({fill: 'red',shape: 'dot',text: 'train-data save faild!'});
                                     }
+                                    node.tempInputData = {};
                                     node.inputData = {};
                                     node.outputData = {};
                                     node.status({fill: 'green',shape: 'dot',text: 'train-data save success!'});
@@ -115,6 +129,7 @@ module.exports = function(RED){
 
                 }
                 if (_G_ControlMode == 'train' && node.trainStatus === 0){
+                    collect.clearAllData();
                     node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                     node.trainStatus = 1;
                     var fileName = 'train-data-file';
@@ -127,6 +142,7 @@ module.exports = function(RED){
                     }
                 }
                 if (_G_ControlMode == 'run'){
+                    collect.clearAllData();
                     var fileName = 'net-data-file';
                     var dataFile = path.join(__dirname)+'../../../'+fileName;
                     dataFile = '/home/root/node-red/'+fileName;
@@ -138,6 +154,9 @@ module.exports = function(RED){
                             run(node,net,msg,msg.netData,node.inputData);
                         }
                     }
+                }
+                if (_G_ControlMode == 'none'){
+                    collect.clearAllData();
                 }
             }
 

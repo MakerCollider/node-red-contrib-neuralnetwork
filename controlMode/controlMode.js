@@ -10,6 +10,8 @@ module.exports = function(RED) {
         this.trainValue = config.trainValue;
         this.saveKey = config.saveKey;
         this.saveValue = config.saveValue;
+        this.tempSaveKey = config.tempSaveKey;
+        this.tempSaveValue = config.tempSaveValue;
         this.runKey = config.runKey;
         this.runValue = config.runValue;
         this.resetKey = config.resetKey;
@@ -52,6 +54,11 @@ module.exports = function(RED) {
                         else if (node.saveKey == k && node.saveValue == keys[k]){
                             node.status({fill: 'green',shape: 'dot',text: 'save train data'});
                             msg[output_key] = 'save';
+                            node.send(msg);
+                        }
+                        else if (node.tempSaveKey == k && node.tempSaveValue == keys[k]){
+                            node.status({fill: 'green',shape: 'dot',text: 'temp save train data'});
+                            msg[output_key] = 'tempSave';
                             node.send(msg);
                         }
                     }

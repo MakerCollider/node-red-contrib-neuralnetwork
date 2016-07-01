@@ -33,11 +33,7 @@ var collect = module.exports = {
         _G_outData = {};
     },
     clearAllData: function() {
-        _G_inData = {}; 
-        _G_outData = {};
         _G_outDataSets = [];
-        _G_indata_completed = 0;
-        _G_outdata_completed = 0;
     }
 };
 
