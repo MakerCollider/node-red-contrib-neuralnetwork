@@ -18,12 +18,14 @@
     "devDependencies": {},
     "scripts": {},
     "node-red": {
+        "disable-nodes":{
+            "brain":   "brain/brain.js",
+            "multiInData"  :   "multiInData/multiInData.js",
+            "dataCollect"  :   "dataCollect/dataCollect.js",
+            "outputJudge"  :   "outputJudge/outputJudge.js"
+        },
         "nodes": {
-              "brain":   "brain/brain.js",
               "neuralNetwork":   "neuralNetwork/neuralNetwork.js",
-              "multiInData"  :   "multiInData/multiInData.js",
-              "dataCollect"  :   "dataCollect/dataCollect.js",
-              "outputJudge"  :   "outputJudge/outputJudge.js",
               "inputCollect" :   "inputCollect/inputCollect.js",
               "outputCollect":   "outputCollect/outputCollect.js",
               "controlMode"  :   "controlMode/controlMode.js"
