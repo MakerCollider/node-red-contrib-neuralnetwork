@@ -5,7 +5,7 @@
     inputs: 1,
     outputs: 1,
     defaults: {
-      name: { value: 'brain' },
+      name: { value: "" },
       brainType: { value: 'train' },
       learningRate: { value: 0.3 },
       hiddenLayers: { value: '3,4' },
@@ -14,7 +14,7 @@
       logPeriod: { value: 10 }
     },
     label: function() {
-        return this.name||"brain";
+        return this.name||this._("brain.label.palette");
     },
     paletteLabel: function () {
         return this.name||this._("brain.label.palette");

@@ -1,5 +1,5 @@
 {
-    "brain": {
+    "neuralNetwork": {
         "label": {
             "palette": "神经网络",
             "name": "名称",
