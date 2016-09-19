@@ -5,7 +5,7 @@
     inputs: 1,
     outputs: 1,
     defaults: {
-      name: { value: 'neuralNetwork' },
+      name: { value: "" },
       brainType: { value: 'train', required: true},
       usageMode: {value:0, required: true},
       inputKey: {value:"payload1"},
@@ -17,7 +17,7 @@
       logPeriod: { value: 10 }
     },
     label: function() {
-        return this.name||"neuralNetwork";
+        return this.name||this._("neuralNetwork.label.palette");
     },
     paletteLabel: function () {
         return this.name||this._("neuralNetwork.label.palette");
