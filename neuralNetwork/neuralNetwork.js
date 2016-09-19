@@ -22,6 +22,7 @@ module.exports = function(RED){
         this.tempInputData = {};
         this.outputData = {};
         this.trainStatus = 0;
+        this.counter = 0;
         var node = this;
 
         node.status({fill: 'green',shape: 'dot',text: 'ready'});
@@ -89,10 +90,12 @@ module.exports = function(RED){
                             if (arrIn.length >0){
                                 node.tempInputData = node.inputData;
                                 msg.temp = node.tempInputData;
+                                msg.status = 'tempSave';
                                 node.send(msg);
                             }
                         }
-                        if (msg[mode_key] == 'save'){
+                        else if (msg[mode_key] == 'save'){
+                        	node.counter++;
                             console.log('save:');
                             console.log('temp:');
                             console.log(node.tempInputData);
@@ -122,45 +125,73 @@ module.exports = function(RED){
                                     node.outputData = {};
                                     node.status({fill: 'green',shape: 'dot',text: 'train-data save success!'});
                                     console.log("train data file "+fileName+" is generated success!");
+                                    msg.status = 'saved';
+                                    node.send(msg);
                                 });
                             }
+                        }
+                        else{
+                        	msg.status = 'collect';
+                	        node.send(msg);
                         }
                     }
 
                 }
                 if (_G_ControlMode == 'train' && node.trainStatus === 0){
+                	node.counter = 0;
                     collect.clearAllData();
                     node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                     node.trainStatus = 1;
                     var fileName = 'train-data-file';
                     var dataFile = path.join(__dirname)+'../../../'+fileName;
                     dataFile = '/home/root/node-red/'+fileName;
-                    var contentText = fs.readFileSync(dataFile,'utf-8');
-                    msg.trainData = JSON.parse(contentText);
-                    if (typeof(msg.trainData)!='undefined'){
-                        train(node,net,msg,msg.trainData,fs,path);
-                    }
+
+                    fs.readFile(dataFile,'utf-8',function(err,data) {
+	                    if (err) {
+	                        node.error(err,msg);
+	                        msg.error = err;
+	                    } else {
+	                        msg.trainData = JSON.parse(data);
+		                    if (typeof(msg.trainData)!='undefined'){
+		                        train(node,net,msg,msg.trainData,fs,path);
+		                    }
+	                        delete msg.error;
+	                    }
+	                });    
                 }
                 if (_G_ControlMode == 'run'){
+                	msg.status = 'run';
+                	node.send(msg);
                     collect.clearAllData();
                     var fileName = 'net-data-file';
                     var dataFile = path.join(__dirname)+'../../../'+fileName;
                     dataFile = '/home/root/node-red/'+fileName;
-                    var contentText = fs.readFileSync(dataFile,'utf-8');
-                    if (contentText != '' && contentText.length > 0){
-                        msg.netData = JSON.parse(contentText);
-                        var arrIn = Object.keys(node.inputData);
-                        if (arrIn.length >0){
-                            run(node,net,msg,msg.netData,node.inputData);
-                        }
-                    }
+                    fs.readFile(dataFile,'utf-8',function(err,data) {
+	                    if (err) {
+	                        node.error(err,msg);
+	                        msg.error = err;
+	                    } else {
+			                if (data != '' && data.length > 0){
+			                    msg.netData = JSON.parse(data);
+			                    var arrIn = Object.keys(node.inputData);
+			                    if (arrIn.length >0){
+			                        run(node,net,msg,msg.netData,node.inputData);
+			                    }
+			                }
+	                        delete msg.error;
+	                    }
+	                });   
                 }
                 if (_G_ControlMode == 'none'){
+                	msg.status = 'none';
+                	node.send(msg);
                     collect.clearAllData();
                 }
             }
 
             function train(_node,_net,_msg,_trainData,_fs,_path){
+            	_msg.status = 'trainning';
+                _node.send(_msg);
                 _node.status({fill: 'yellow',shape: 'dot',text: 'training'});
                 var trainData;
                 if (typeof(_trainData) == 'string'){
@@ -179,6 +210,7 @@ module.exports = function(RED){
                         _msg.payload = _net.toJSON();
                         netData = _net.toJSON();
                         if (typeof(netData)!='undefined' && typeof(_msg.payload)!='undefined'){
+                        	_msg.status = 'trainning done';
                             _node.send(_msg);
                             _node.status({fill: 'green',shape: 'dot',text: 'trainning done'});
 
@@ -224,6 +256,7 @@ module.exports = function(RED){
                 if (typeof(netData)!='undefined' && typeof(runData)!='undefined'){
                     _net.fromJSON(netData);
                     var resultData = _net.run(runData);
+                    _msg.status = 'running done';
                     _msg.payload = resultData;
                     _node.status({fill: 'green',shape: 'dot',text: 'running done'});
                     if (_node.usageMode == 1){
